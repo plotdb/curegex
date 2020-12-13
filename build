@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+echo "prepare..."
+rm -rf dist
+mkdir -p dist
+
+echo "building curegex.ls -> curegex.js ..."
+npx lsc -cp src/curegex.ls > dist/curegex.js
+echo "minify curegex.js -> curegex.min.js ..."
+npx uglifyjs dist/curegex.js > dist/curegex.min.js
+
+echo "building curegex.tw.ls -> curegex.tw.js ..."
+npx lsc -cp src/curegex.tw.ls > dist/curegex.tw.js
+echo "minify curegex.tw.js -> curegex.tw.min.js ..."
+npx uglifyjs dist/curegex.tw.js > dist/curegex.tw.min.js
+
+echo "copy dist to web ..."
+rm -rf web/static/assets/lib/curegex/dev/
+mkdir -p web/static/assets/lib/curegex/dev/
+cp -R dist/* web/static/assets/lib/curegex/dev/

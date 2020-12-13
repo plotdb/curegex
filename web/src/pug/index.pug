@@ -1,0 +1,75 @@
+doctype html
+include /../../static/assets/lib/ldui/pug/ldui.pug
+html
+  head
+    +css("assets/lib/bootstrap/4.3.1/css/bootstrap.min.css")
+    +css("assets/lib/ldui/ldui.min.css")
+    style(type="text/css"): :stylus
+      textarea[ld=regstr]
+        font-family: monospace
+      [ld=status] span:before
+        content: "不符"
+        color: #f00
+        display: inline
+      .pass[ld=status] span:before
+        content: "符合"
+        color: #090
+        display: inline
+  body
+    .w-1024.rwd.mx-auto.typeset.heading-contrast
+      .form-group(ld-each="rule")
+        .row
+          .col-md: span(ld="name")
+          .col-md: .has-tips.manual
+            textarea.form-control.text-sm(rows="3",ld="regstr", readonly) 
+            .hover-tip.tip-sm.left 已複製
+          .col-md: input.form-control(ld="check")
+          .col-md: div(ld="status")
+            i
+            span
+
+    +script("assets/lib/clipboard/2.0.4/clipboard.min.js")
+    +script("assets/lib/bootstrap.native/2.0.27/bootstrap-native-v4.min.js")
+    +script("assets/lib/ldui/ldui.min.js")
+    script: :lsc
+      regstr = [
+        {name: "中文字", rule: "^[\u4e00-\u9fa5]{0,}$"}
+        {name: "身份證字號", rule: "[a-zA-Z][0-9]{9}"}
+        {name: "10位數手機號碼", rule: "[0-9]{4}-?[0-9]{3}-?[0-9]{3}"}
+        {name: "統一編號", rule: "[0-9]{8}"}
+        {name: "郵遞區號", rule: "[0-9]{3,6}"}
+      ]
+
+      view = new ldView do
+        root: document.body
+        handler:
+          rule: do
+            list: -> regstr
+            init: ({node, data, local}) ->
+              console.log 1
+              local.view = new ldView do
+                root: node
+                context: data
+                init:
+                  regstr: ({node, context, local}) ->
+                    local.clipboard = new ClipboardJS(
+                      node, { text: (trigger) -> context.rule }
+                    )
+                    local.clipboard.on \success, ->
+                      clearTimeout local.handle
+                      node.parentNode.classList.add \tip-on
+                      local.handle = setTimeout (-> node.parentNode.classList.remove \tip-on), 1000
+
+                handler:
+                  status: ({node}) -> node.classList.toggle "pass", local.state
+                  regstr: ({node, context}) -> node.value = context.rule
+                text:
+                  name: ({context}) -> context.name
+                action: input:
+                  check: ({node, context}) ->
+                    re = new RegExp(context.rule)
+                    local.state = re.exec(node.value)
+                    local.view.render \status
+            handler: ({node, data, local}) ->
+              local.view.setContext data
+              local.view.render!

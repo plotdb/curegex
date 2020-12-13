@@ -1,0 +1,27 @@
+{
+  "author": "zbryikt",
+  "name": "curegex",
+  "license": "MIT",
+  "files": [
+    "dist/**/*"
+  ],
+  "description": "Commonly Used REGular EXpressions",
+  "version": "0.0.1",
+  "homepage": "https://github.com/plotdb/curegex",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plotdb/curegex"
+  },
+  "engines": {
+    "node": ">=10.14.1",
+    "npm": ">=6.4.1"
+  },
+  "scripts": {
+    "start": "npx server -r web"
+  },
+  "devDependencies": {
+    "livescript": ">=1.6.0",
+    "uglify-js": "=3.2.0",
+    "template": "github:zbryikt/template#v2.1.6"
+  }
+}
