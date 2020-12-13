@@ -1,9 +1,9 @@
 doctype html
-include /../../static/assets/lib/ldui/pug/ldui.pug
+include /../../static/assets/lib/bootstrap.ldui/main/index.pug
 html
   head
-    +css("assets/lib/bootstrap/4.3.1/css/bootstrap.min.css")
-    +css("assets/lib/ldui/ldui.min.css")
+    +css("assets/lib/bootstrap/main/css/bootstrap.min.css")
+    +css("assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.css")
     style(type="text/css"): :stylus
       textarea[ld=regstr]
         font-family: monospace
@@ -28,16 +28,19 @@ html
             i
             span
 
-    +script("assets/lib/clipboard/2.0.4/clipboard.min.js")
-    +script("assets/lib/bootstrap.native/2.0.27/bootstrap-native-v4.min.js")
-    +script("assets/lib/ldui/ldui.min.js")
+    +script("assets/lib/clipboard/main/clipboard.min.js")
+    +script("assets/lib/bootstrap.native/main/bootstrap-native.min.js")
+    +script("assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.js")
+    +script("assets/lib/@loadingio/ldquery/main/ldq.min.js")
+    +script("assets/lib/ldview/main/ldview.min.js")
+    +script("assets/lib/curegex/dev/curegex.tw.min.js")
     script: :lsc
       regstr = [
-        {name: "中文字", rule: "^[\u4e00-\u9fa5]{0,}$"}
-        {name: "身份證字號", rule: "[a-zA-Z][0-9]{9}"}
-        {name: "10位數手機號碼", rule: "[0-9]{4}-?[0-9]{3}-?[0-9]{3}"}
-        {name: "統一編號", rule: "[0-9]{8}"}
-        {name: "郵遞區號", rule: "[0-9]{3,6}"}
+        {name: "中文字", rule: curegex.han}
+        {name: "身份證字號", rule: curegex.id}
+        {name: "10位數手機號碼", rule: curegex.mobile}
+        {name: "統一編號", rule: curegex.vatid}
+        {name: "郵遞區號", rule: curegex.zipcode}
       ]
 
       view = new ldView do
@@ -46,7 +49,6 @@ html
           rule: do
             list: -> regstr
             init: ({node, data, local}) ->
-              console.log 1
               local.view = new ldView do
                 root: node
                 context: data
