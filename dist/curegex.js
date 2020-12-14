@@ -1,4 +1,4 @@
-var curegex = 
+(function(){ var curegex = [
 [
   {
     "name": "email",
@@ -26,23 +26,36 @@ var curegex =
     "rule": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
   }
 ]
+];
 var map, main;
 map = {};
-Array.from(curegex).map(function(it){
-  return map[it.name] = it;
+curegex.map(function(regs){
+  return regs.map(function(it){
+    return map[it.name] = it;
+  });
 });
 main = {
   get: function(name, engine){
     var obj;
-    engine == null && (engine = RegExp);
+    if (!engine) {
+      engine = this._engine || RegExp;
+    }
     if (!(obj = map[name])) {
       return null;
     }
     return new engine(obj.rule, obj.flag || []);
+  },
+  engine: function(it){
+    return this._engine = it;
+  },
+  raw: function(name){
+    return map[name];
   }
 };
 if (typeof module != 'undefined' && module !== null) {
   module.exports = main;
-} else if (typeof window != 'undefined' && window !== null) {
+}
+if (typeof window != 'undefined' && window !== null) {
   window.curegex = main;
 }
+})();

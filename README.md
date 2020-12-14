@@ -18,7 +18,12 @@ Some regular expressions here are vulnerable to `ReDOS` attack. Be sure to use t
 
 include `curegex.js` or `curegex.tw.js`, then use:
 
-    curegex.mail.exec(mystring);
+    curegex.get("mail").exec(mystring);
+    curegex.get("mail", re2).exec(mystring); /* use `re2` regex engine instead of native RegExp */
+
+set default regular expression engine:
+
+    curegex.engine(re2);
 
 
 
