@@ -2,6 +2,7 @@
   "author": "zbryikt",
   "name": "curegex",
   "license": "MIT",
+  "main": "./dist/main.js",
   "files": [
     "dist/**/*"
   ],
