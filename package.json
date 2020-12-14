@@ -29,6 +29,8 @@
     "fedep": "0.0.10",
     "ldview": "0.0.2",
     "livescript": ">=1.6.0",
+    "re2": "^1.15.9",
+    "safe-regex": "^2.1.1",
     "template": "github:zbryikt/template#v2.1.6",
     "uglify-js": "=3.2.0"
   },
