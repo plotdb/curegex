@@ -1,5 +1,3 @@
-``import * as curegex from './curegex.yaml';``
-
 map = {}
 Array.from(curegex).map -> map[it.name] = it
 

@@ -4,9 +4,21 @@ echo "prepare..."
 rm -rf dist
 mkdir -p dist
 
-echo "building curegex.ls / curegex.tw.ls -> dist ... "
+echo "building curegex.ls -> curegex.js ..."
+echo "var curegex = " > dist/curegex.js
+cat src/curegex.yaml | npx js-yaml >> dist/curegex.js
+npx lsc -cbp --no-header src/curegex.ls  >> dist/curegex.js
+echo "minimizing curegex.js -> curegex.min.js ..."
+npx uglifyjs dist/curegex.js > dist/curegex.min.js
 
-npx webpack
+echo "building curegex.tw.ls -> curegex.tw.js ..."
+echo "var curegex = " > dist/curegex.tw.js
+cat src/curegex.yaml | npx js-yaml >> dist/curegex.tw.js
+echo "var curegextw = " >> dist/curegex.tw.js
+cat src/curegex.tw.yaml | npx js-yaml >> dist/curegex.tw.js
+npx lsc -cbp --no-header src/curegex.tw.ls  >> dist/curegex.tw.js
+echo "minimizing curegex.tw.js -> curegex.tw.min.js ..."
+npx uglifyjs dist/curegex.tw.js > dist/curegex.tw.min.js
 
 echo "copy dist to web ..."
 rm -rf web/static/assets/lib/curegex/dev/

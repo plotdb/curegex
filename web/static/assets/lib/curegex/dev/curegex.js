@@ -1,1 +1,48 @@
-(()=>{"use strict";var e,r,t={672:(e,r,t)=>{const n=JSON.parse('[{"name":"email","rule":"^[-a-z0-9~!$%^&*_=+}{\\\\\'?]+(\\\\.[-a-z0-9~!$%^&*_=+}{\\\\\'?]+)*@([a-z0-9_][-a-z0-9_]*(\\\\.[-a-z0-9_]+)*\\\\.[a-z]{2,}|([0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}))(:[0-9]{1,5})?$","flag":"i"},{"name":"url","rule":"https?:\\\\/\\\\/(www\\\\.)?[-a-zA-Z0-9@:%._\\\\+~#=]{2,256}\\\\.[a-z]{2,6}\\\\b([-a-zA-Z0-9@:%_\\\\+.~#()?&//=]*)"},{"name":"password-len8-cn","rule":"^(?=.*[A-Za-z])(?=.*\\\\d)[A-Za-z\\\\d]{8,}$"},{"name":"password-len8-cns","rule":"^(?=.*[A-Za-z])(?=.*\\\\d)(?=.*[@$!%*#?&])[A-Za-z\\\\d@$!%*#?&]{8,}$"},{"name":"password-len8-uln","rule":"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)[a-zA-Z\\\\d]{8,}$"},{"name":"password-len8-ulns","rule":"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]{8,}$"}]');var o,a,l=t.t(n,2);e=t.hmd(e),o={},Array.from(l).map((function(e){return o[e.name]=e})),a={get:function(e,r){var t;return null==r&&(r=RegExp),(t=o[e])?new r(t.rule,t.flag||[]):null}},null!==e?e.exports=a:"undefined"!=typeof window&&null!==window&&(window.curegex=a)}},n={};function o(e){if(n[e])return n[e].exports;var r=n[e]={id:e,loaded:!1,exports:{}};return t[e](r,r.exports,o),r.loaded=!0,r.exports}r=Object.getPrototypeOf?e=>Object.getPrototypeOf(e):e=>e.__proto__,o.t=function(t,n){if(1&n&&(t=this(t)),8&n)return t;if("object"==typeof t&&t){if(4&n&&t.__esModule)return t;if(16&n&&"function"==typeof t.then)return t}var a=Object.create(null);o.r(a);var l={};e=e||[null,r({}),r([]),r(r)];for(var d=2&n&&t;"object"==typeof d&&!~e.indexOf(d);d=r(d))Object.getOwnPropertyNames(d).forEach((e=>l[e]=()=>t[e]));return l.default=()=>t,o.d(a,l),a},o.d=(e,r)=>{for(var t in r)o.o(r,t)&&!o.o(e,t)&&Object.defineProperty(e,t,{enumerable:!0,get:r[t]})},o.hmd=e=>((e=Object.create(e)).children||(e.children=[]),Object.defineProperty(e,"exports",{enumerable:!0,set:()=>{throw new Error("ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: "+e.id)}}),e),o.o=(e,r)=>Object.prototype.hasOwnProperty.call(e,r),o.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},o(672)})();
+var curegex = 
+[
+  {
+    "name": "email",
+    "rule": "^[-a-z0-9~!$%^&*_=+}{\\'?]+(\\.[-a-z0-9~!$%^&*_=+}{\\'?]+)*@([a-z0-9_][-a-z0-9_]*(\\.[-a-z0-9_]+)*\\.[a-z]{2,}|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,5})?$",
+    "flag": "i"
+  },
+  {
+    "name": "url",
+    "rule": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#()?&//=]*)"
+  },
+  {
+    "name": "password-len8-cn",
+    "rule": "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+  },
+  {
+    "name": "password-len8-cns",
+    "rule": "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$"
+  },
+  {
+    "name": "password-len8-uln",
+    "rule": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+  },
+  {
+    "name": "password-len8-ulns",
+    "rule": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
+  }
+]
+var map, main;
+map = {};
+Array.from(curegex).map(function(it){
+  return map[it.name] = it;
+});
+main = {
+  get: function(name, engine){
+    var obj;
+    engine == null && (engine = RegExp);
+    if (!(obj = map[name])) {
+      return null;
+    }
+    return new engine(obj.rule, obj.flag || []);
+  }
+};
+if (typeof module != 'undefined' && module !== null) {
+  module.exports = main;
+} else if (typeof window != 'undefined' && window !== null) {
+  window.curegex = main;
+}
