@@ -26,6 +26,13 @@ set default regular expression engine:
     curegex.engine(re2);
 
 
+## Usage with NodeJS
+
+include `curegex` and use it by scope:
+
+    var curegex = require("curegex");
+    var curegextw = require("curegex").tw;
+ 
 
 ## Resources
 
