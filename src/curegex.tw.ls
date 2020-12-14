@@ -1,18 +1,15 @@
-main = {}
+``import * as curegex from './curegex.yaml';``
+``import * as curegextw from './curegex.tw.yaml';``
 
-main
-  # 中文字
-  ..han = /^[\u4e00-\u9fa5]{0,}$/
-  # 身份證字號
-  ..id = /^[a-zA-Z][0-9]{9}$/
-  # 手機號碼 ( 09xx-xxx-xxx )
-  ..mobile = /^[0-9]{4}-?[0-9]{3}-?[0-9]{3}$/
-  # 統一編號
-  ..vatid = /^[0-9]{8}$/
-  # 郵遞區號
-  ..zipcode = /^[0-9]{3}|[0-9]{5,6}$/
-  ..email = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.[a-z]{2,}|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
-  ..url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)/ 
+map = {}
+Array.from(curegex).map -> map[it.name] = it
+Array.from(curegextw).map -> map[it.name] = it
 
-if module? => module.exports = main
-else if window? => window.curegex = main
+main = do
+  get: (name, engine=RegExp) ->
+    if !(obj = map[name]) => return null
+    return new engine(obj.rule, obj.flag or '')
+  raw: (name) -> return map[name]
+
+#if module? => module.exports = main
+if window? => window.curegex = main

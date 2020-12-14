@@ -1,8 +1,12 @@
-main = {}
-main.email = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.[a-z]{2,}|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
-main.url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)/ 
+``import * as curegex from './curegex.yaml';``
+
+map = {}
+Array.from(curegex).map -> map[it.name] = it
+
+main = do
+  get: (name, engine=RegExp) ->
+    if !(obj = map[name]) => return null
+    return new engine(obj.rule, obj.flag or [])
 
 if module? => module.exports = main
 else if window? => window.curegex = main
-
-

@@ -7,6 +7,7 @@ html
     style(type="text/css"): :stylus
       textarea[ld=regstr]
         font-family: monospace
+        font-size: 18px
       [ld=status] span:before
         content: "不符"
         color: #f00
@@ -17,30 +18,31 @@ html
         display: inline
   body
     .w-1024.rwd.mx-auto.typeset.heading-contrast
-      .form-group(ld-each="rule")
-        .row
-          .col-md: span(ld="name")
-          .col-md: .has-tips.manual
-            textarea.form-control.text-sm(rows="3",ld="regstr", readonly) 
-            .hover-tip.tip-sm.left 已複製
-          .col-md: input.form-control(ld="check")
-          .col-md: div(ld="status")
-            i
-            span
+      .d-flex.align-items-stretch.my-4(ld-each="rule")
+        .text-nowrap.d-flex.align-items-center.justify-content-center(style="width:7em;flex:1 0 auto")
+          .text-center
+            div(ld="name")
+            div(ld="status") #[i]#[span]
+        .has-tips.manual.mx-2(style="width:40%;flex:1 0 40%")
+          textarea.form-control.text-sm(rows="3",ld="regstr", readonly) 
+          .hover-tip.tip-sm.top 已複製
+        textarea.form-control.mr-2(ld="check")
 
     +script("assets/lib/clipboard/main/clipboard.min.js")
     +script("assets/lib/bootstrap.native/main/bootstrap-native.min.js")
     +script("assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.js")
     +script("assets/lib/@loadingio/ldquery/main/ldq.min.js")
     +script("assets/lib/ldview/main/ldview.min.js")
-    +script("assets/lib/curegex/dev/curegex.tw.min.js")
+    +script("assets/lib/curegex/dev/curegex.tw.js")
     script: :lsc
       regstr = [
-        {name: "中文字", rule: curegex.han}
-        {name: "身份證字號", rule: curegex.id}
-        {name: "10位數手機號碼", rule: curegex.mobile}
-        {name: "統一編號", rule: curegex.vatid}
-        {name: "郵遞區號", rule: curegex.zipcode}
+        {name: "中文字", rule: curegex.get('han')}
+        {name: "身份證字號", rule: curegex.get('id')}
+        {name: "10位數手機號碼", rule: curegex.get('mobile')}
+        {name: "統一編號", rule: curegex.get('vatid')}
+        {name: "郵遞區號", rule: curegex.get('zipcode')}
+        {name: "電子郵件位址", rule: curegex.get('email')}
+        {name: "網址", rule: curegex.get('url')}
       ]
 
       view = new ldView do

@@ -1,5 +1,6 @@
 <!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/main/css/bootstrap.min.css"><link rel="stylesheet" type="text/css" href="assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.css"><style type="text/css">textarea[ld=regstr] {
   font-family: monospace;
+  font-size: 18px;
 }
 [ld=status] span:before {
   content: "不符";
@@ -11,23 +12,29 @@
   color: #090;
   display: inline;
 }
-</style></head><body><div class="w-1024 rwd mx-auto typeset heading-contrast"><div class="form-group" ld-each="rule"><div class="row"><div class="col-md"><span ld="name"></span></div><div class="col-md"><div class="has-tips manual"><textarea class="form-control text-sm" rows="3" ld="regstr" readonly> </textarea><div class="hover-tip tip-sm left">已複製</div></div></div><div class="col-md"><input class="form-control" ld="check"></div><div class="col-md"><div ld="status"><i></i><span></span></div></div></div></div></div><script type="text/javascript" src="assets/lib/clipboard/main/clipboard.min.js"></script><script type="text/javascript" src="assets/lib/bootstrap.native/main/bootstrap-native.min.js"></script><script type="text/javascript" src="assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.js"></script><script type="text/javascript" src="assets/lib/@loadingio/ldquery/main/ldq.min.js"></script><script type="text/javascript" src="assets/lib/ldview/main/ldview.min.js"></script><script type="text/javascript" src="assets/lib/curegex/dev/curegex.tw.min.js"></script><script>var regstr, view;
+</style></head><body><div class="w-1024 rwd mx-auto typeset heading-contrast"><div class="d-flex align-items-stretch my-4" ld-each="rule"><div class="text-nowrap d-flex align-items-center justify-content-center" style="width:7em;flex:1 0 auto"><div class="text-center"><div ld="name"></div><div ld="status"><i></i><span></span></div></div></div><div class="has-tips manual mx-2" style="width:40%;flex:1 0 40%"><textarea class="form-control text-sm" rows="3" ld="regstr" readonly> </textarea><div class="hover-tip tip-sm top">已複製</div></div><textarea class="form-control mr-2" ld="check"></textarea></div></div><script type="text/javascript" src="assets/lib/clipboard/main/clipboard.min.js"></script><script type="text/javascript" src="assets/lib/bootstrap.native/main/bootstrap-native.min.js"></script><script type="text/javascript" src="assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.js"></script><script type="text/javascript" src="assets/lib/@loadingio/ldquery/main/ldq.min.js"></script><script type="text/javascript" src="assets/lib/ldview/main/ldview.min.js"></script><script type="text/javascript" src="assets/lib/curegex/dev/curegex.tw.js"></script><script>var regstr, view;
 regstr = [
   {
     name: "中文字",
-    rule: curegex.han
+    rule: curegex.get('han')
   }, {
     name: "身份證字號",
-    rule: curegex.id
+    rule: curegex.get('id')
   }, {
     name: "10位數手機號碼",
-    rule: curegex.mobile
+    rule: curegex.get('mobile')
   }, {
     name: "統一編號",
-    rule: curegex.vatid
+    rule: curegex.get('vatid')
   }, {
     name: "郵遞區號",
-    rule: curegex.zipcode
+    rule: curegex.get('zipcode')
+  }, {
+    name: "電子郵件位址",
+    rule: curegex.get('email')
+  }, {
+    name: "網址",
+    rule: curegex.get('url')
   }
 ];
 view = new ldView({
