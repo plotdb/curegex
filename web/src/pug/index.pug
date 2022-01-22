@@ -1,9 +1,9 @@
 doctype html
-include /../../static/assets/lib/bootstrap.ldui/main/index.pug
+include @/@loadingio/bootstrap.ext/index.pug
 html
   head
-    +css("assets/lib/bootstrap/main/css/bootstrap.min.css")
-    +css("assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.css")
+    +css("assets/lib/bootstrap/main/dist/css/bootstrap.min.css")
+    +css("assets/lib/@loadingio/bootstrap.ext/main/index.min.css")
     style(type="text/css"): :stylus
       textarea[ld=regstr]
         font-family: monospace
@@ -28,13 +28,12 @@ html
           .hover-tip.tip-sm.top 已複製
         textarea.form-control.mr-2(ld="check")
 
-    +script("assets/lib/clipboard/main/clipboard.min.js")
-    +script("assets/lib/bootstrap.native/main/bootstrap-native.min.js")
-    +script("assets/lib/bootstrap.ldui/main/bootstrap.ldui.min.js")
-    +script("assets/lib/@loadingio/ldquery/main/ldq.min.js")
-    +script("assets/lib/ldview/main/ldview.min.js")
+    +script("assets/lib/clipboard/main/dist/clipboard.min.js")
+    +script("assets/lib/bootstrap.native/main/dist/bootstrap-native.min.js")
+    +script("assets/lib/@loadingio/ldquery/main/index.min.js")
+    +script("assets/lib/ldview/main/index.min.js")
     +script("assets/lib/curegex/dev/curegex.tw.js")
-    script: :lsc
+    script(type="module"): :lsc
       regstr = [
         {name: "中文字", rule: curegex.get('han')}
         {name: "身份證字號", rule: curegex.get('id')}
@@ -53,11 +52,11 @@ html
             init: ({node, data, local}) ->
               local.view = new ldView do
                 root: node
-                context: data
+                ctx: data
                 init:
-                  regstr: ({node, context, local}) ->
+                  regstr: ({node, ctx, local}) ->
                     local.clipboard = new ClipboardJS(
-                      node, { text: (trigger) -> context.rule }
+                      node, { text: (trigger) -> ctx.rule }
                     )
                     local.clipboard.on \success, ->
                       clearTimeout local.handle
@@ -66,14 +65,14 @@ html
 
                 handler:
                   status: ({node}) -> node.classList.toggle "pass", local.state
-                  regstr: ({node, context}) -> node.value = context.rule
+                  regstr: ({node, ctx}) -> node.value = ctx.rule
                 text:
-                  name: ({context}) -> context.name
+                  name: ({ctx}) -> ctx.name
                 action: input:
-                  check: ({node, context}) ->
-                    re = new RegExp(context.rule)
+                  check: ({node, ctx}) ->
+                    re = new RegExp(ctx.rule)
                     local.state = re.exec(node.value)
                     local.view.render \status
             handler: ({node, data, local}) ->
-              local.view.setContext data
+              local.view.setCtx data
               local.view.render!

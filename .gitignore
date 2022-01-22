@@ -5,3 +5,4 @@ web/.view
 *.log
 secret.*
 dev
+web/static/assets/lib/
