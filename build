@@ -5,7 +5,7 @@ rm -rf dist
 mkdir -p dist
 
 echo "building main.ls -> main.js ..."
-npx lsc -cbp --no-header src/main.ls  >> dist/main.js
+npx lsc -cbp --no-header src/main.ls > dist/main.js
 
 echo "building curegex.ls -> curegex.js ..."
 echo "(function(){ var curegex = [" > dist/curegex.js
