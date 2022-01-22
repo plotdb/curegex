@@ -4,7 +4,6 @@
 
  - upgrade modules
  - release with compact directory structure
- - add `style` in `package.json`
  - add `main` and `browser` field in `package.json`.
  - further minimize generated js file with mangling and compression
  - remove assets files from git
